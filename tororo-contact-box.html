@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>神宮寺匁トロロ ご連絡BOX</title>
+
+  <style>
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      --pink: #ec4899;
+      --red: #dc2626;
+      --black: #111827;
+      --text: #111827;
+      --subtext: #6b7280;
+      --border: #e5e7eb;
+      --panel: #f9fafb;
+      --warning-bg: #fff7ed;
+      --warning-text: #9a3412;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --error-bg: #fee2e2;
+      --error-text: #991b1b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.20), transparent 32%),
+        linear-gradient(135deg, #7c3aed, #ec4899);
+      color: var(--text);
+    }
+
+    .contact-box {
+      width: 100%;
+      max-width: 760px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 26px;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 30px;
+      line-height: 1.35;
+    }
+
+    .subtitle {
+      margin: 10px 0 22px;
+      text-align: center;
+      color: var(--subtext);
+      line-height: 1.75;
+    }
+
+    .profile {
+      margin-bottom: 22px;
+      padding: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .profile-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 6px 0;
+    }
+
+    .profile-label {
+      width: 80px;
+      flex: 0 0 80px;
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .profile-value {
+      min-width: 0;
+      font-size: 15px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .profile-value a {
+      color: var(--purple);
+      text-decoration: none;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .section-description {
+      margin: -3px 0 13px;
+      color: var(--subtext);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      margin-bottom: 22px;
+    }
+
+    .category-option {
+      position: relative;
+    }
+
+    .category-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .category-option label {
+      min-height: 76px;
+      margin: 0;
+      padding: 10px 7px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      color: #374151;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1.35;
+      cursor: pointer;
+      transition: 0.18s;
+    }
+
+    .category-option label .icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .category-option input:checked + label {
+      border-color: var(--purple);
+      background: var(--purple-light);
+      color: var(--purple);
+      transform: translateY(-1px);
+      box-shadow: 0 5px 16px rgba(124, 58, 237, 0.14);
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field-grid.three {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label,
+    .checkbox-title {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .optional {
+      margin-left: 5px;
+      color: var(--subtext);
+      font-size: 11px;
+      font-weight: normal;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 2px solid var(--border);
+      border-radius: 13px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.11);
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .dynamic-section {
+      display: none;
+      margin: 2px 0 18px;
+      padding: 18px;
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 16px;
+    }
+
+    .dynamic-section.show {
+      display: block;
+    }
+
+    .dynamic-section h2 {
+      margin: 0 0 5px;
+      color: #5b21b6;
+      font-size: 18px;
+    }
+
+    .dynamic-section .note {
+      margin: 0 0 15px;
+      color: #6d28d9;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .check-chip {
+      position: relative;
+    }
+
+    .check-chip input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .check-chip label {
+      min-height: 42px;
+      margin: 0;
+      padding: 9px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      color: #374151;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.16s;
+    }
+
+    .check-chip input:checked + label {
+      border-color: var(--purple);
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .counter-row {
+      margin-top: 7px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .rule-box {
+      margin-top: 16px;
+      padding: 13px;
+      background: var(--warning-bg);
+      border-radius: 12px;
+      color: var(--warning-text);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .agree-row {
+      margin-top: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      color: #374151;
+      font-size: 13px;
+      line-height: 1.6;
+      cursor: pointer;
+    }
+
+    .agree-row input {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      flex: 0 0 auto;
+      accent-color: var(--purple);
+    }
+
+    .button-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    button {
+      width: 100%;
+      min-height: 54px;
+      padding: 13px 12px;
+      border: 0;
+      border-radius: 14px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .gmail-button {
+      background: linear-gradient(90deg, #dc2626, #ef4444);
+    }
+
+    .x-button {
+      background: var(--black);
+    }
+
+    .status {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .status.success {
+      display: block;
+      color: var(--success-text);
+      background: var(--success-bg);
+    }
+
+    .status.error {
+      display: block;
+      color: var(--error-text);
+      background: var(--error-bg);
+    }
+
+    .manual-copy {
+      display: none;
+      margin-top: 14px;
+      padding: 13px;
+      background: #f3f4f6;
+      border-radius: 12px;
+    }
+
+    .manual-copy.show {
+      display: block;
+    }
+
+    .manual-copy textarea {
+      min-height: 170px;
+      font-size: 13px;
+    }
+
+    .manual-copy button {
+      margin-top: 9px;
+      min-height: 44px;
+      background: var(--purple);
+    }
+
+    .privacy-note {
+      margin: 15px 0 0;
+      text-align: center;
+      color: var(--subtext);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 760px) {
+      .contact-box {
+        padding: 23px 17px;
+        border-radius: 19px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .category-grid,
+      .checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .field-grid,
+      .field-grid.three,
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="contact-box">
+    <h1>神宮寺匁トロロ<br>ご連絡BOX</h1>
+
+    <p class="subtitle">
+      お仕事のご依頼、コラボ、アドバイス、リクエスト、質問など、<br>
+      どんな内容でもお気軽にお送りください。
+    </p>
+
+    <section class="profile" aria-label="連絡先">
+      <div class="profile-row">
+        <div class="profile-label">お名前</div>
+        <div class="profile-value">神宮寺匁トロロ</div>
+      </div>
+
+      <div class="profile-row">
+        <div class="profile-label">XへDM</div>
+        <div class="profile-value">
+          <a href="https://x.com/Tororo_JINGUJI" target="_blank" rel="noopener noreferrer">
+            @Tororo_JINGUJI
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <form id="contactForm" novalidate>
+      <p class="section-title">ご連絡の種類</p>
+      <p class="section-description">最も近い項目を1つ選んでください。</p>
+
+      <div class="category-grid">
+        <div class="category-option">
+          <input type="radio" name="category" id="catWork" value="お仕事・PRのご依頼" checked>
+          <label for="catWork"><span class="icon">💼</span>お仕事・PR</label>
+        </div>
+
+        <div class="category-option">
+          <input type="radio" name="category" id="catCollab" value="コラボ・出演のご相談">
+          <label for="catCollab"><span class="icon">🤝</span>コラボ・出演</label>
+        </div>
+
+        <div class="category-option">
+          <input type="radio" name="category" id="catAdvice" value="アドバイス・相談">
+          <label for="catAdvice"><span class="icon">💡</span>アドバイス・相談</label>
+        </div>
+
+        <div class="category-option">
+          <input type="radio" name="category" id="catRequest" value="やってほしいこと・リクエスト">
+          <label for="catRequest"><span class="icon">🎯</span>やってほしいこと</label>
+        </div>
+
+        <div class="category-option">
+          <input type="radio" name="category" id="catQuestion" value="質問">
+          <label for="catQuestion"><span class="icon">❓</span>質問</label>
+        </div>
+
+        <div class="category-option">
+          <input type="radio" name="category" id="catMedia" value="取材・掲載のご相談">
+          <label for="catMedia"><span class="icon">📰</span>取材・掲載</label>
+        </div>
+
+        <div class="category-option">
+          <input type="radio" name="category" id="catSupport" value="応援・メッセージ">
+          <label for="catSupport"><span class="icon">💬</span>応援・メッセージ</label>
+        </div>
+
+        <div class="category-option">
+          <input type="radio" name="category" id="catOther" value="その他">
+          <label for="catOther"><span class="icon">✉️</span>その他</label>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="senderName">
+            お名前・会社名
+            <span class="optional">任意</span>
+          </label>
+          <input type="text" id="senderName" maxlength="80"
+            placeholder="会社名・担当者名・ニックネームなど">
+        </div>
+
+        <div class="field">
+          <label for="replyContact">
+            ご返信先
+            <span class="optional">任意</span>
+          </label>
+          <input type="text" id="replyContact" maxlength="120"
+            placeholder="メールアドレスまたはXのID">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="subject">
+          件名
+          <span class="optional">任意</span>
+        </label>
+        <input type="text" id="subject" maxlength="100"
+          placeholder="例：ゲームPR動画の制作依頼について">
+      </div>
+
+      <section id="workSection" class="dynamic-section show">
+        <h2>お仕事・PRのご依頼</h2>
+        <p class="note">分かる範囲だけで大丈夫です。未定の項目は空欄のまま送れます。</p>
+
+        <div class="field">
+          <label for="workType">ご依頼内容</label>
+          <select id="workType">
+            <option value="">選択してください</option>
+            <option>ゲーム・アプリのPR</option>
+            <option>YouTube動画制作</option>
+            <option>ショート動画制作</option>
+            <option>X・SNS投稿</option>
+            <option>ライブ配信</option>
+            <option>広告・プロモーション</option>
+            <option>音楽・映像制作</option>
+            <option>AI歌唱・音声関連</option>
+            <option>SNS運用・企画・コンサルティング</option>
+            <option>イベント・出演</option>
+            <option>その他</option>
+          </select>
+        </div>
+
+        <span class="checkbox-title">希望する媒体・プラットフォーム</span>
+        <div class="checkbox-grid">
+          <div class="check-chip">
+            <input type="checkbox" id="platformYoutube" value="YouTube">
+            <label for="platformYoutube">YouTube</label>
+          </div>
+          <div class="check-chip">
+            <input type="checkbox" id="platformX" value="X">
+            <label for="platformX">X</label>
+          </div>
+          <div class="check-chip">
+            <input type="checkbox" id="platformTikTok" value="TikTok">
+            <label for="platformTikTok">TikTok</label>
+          </div>
+          <div class="check-chip">
+            <input type="checkbox" id="platformInstagram" value="Instagram">
+            <label for="platformInstagram">Instagram</label>
+          </div>
+          <div class="check-chip">
+            <input type="checkbox" id="platformStreaming" value="ライブ配信">
+            <label for="platformStreaming">ライブ配信</label>
+          </div>
+          <div class="check-chip">
+            <input type="checkbox" id="platformEvent" value="イベント">
+            <label for="platformEvent">イベント</label>
+          </div>
+          <div class="check-chip">
+            <input type="checkbox" id="platformOther" value="その他">
+            <label for="platformOther">その他</label>
+          </div>
+        </div>
+
+        <div class="field-grid three">
+          <div class="field">
+            <label for="deliverables">
+              希望する本数・内容
+              <span class="optional">任意</span>
+            </label>
+            <input type="text" id="deliverables" maxlength="100"
+              placeholder="例：動画1本＋X投稿1件">
+          </div>
+
+          <div class="field">
+            <label for="budget">
+              ご予算
+              <span class="optional">任意</span>
+            </label>
+            <input type="text" id="budget" maxlength="80"
+              placeholder="例：10万円、応相談">
+          </div>
+
+          <div class="field">
+            <label for="deadline">
+              希望時期・納期
+              <span class="optional">任意</span>
+            </label>
+            <input type="text" id="deadline" maxlength="80"
+              placeholder="例：2026年8月頃">
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="usage">
+              二次利用・広告利用
+              <span class="optional">任意</span>
+            </label>
+            <select id="usage">
+              <option value="">未定・相談したい</option>
+              <option>二次利用なし</option>
+              <option>広告利用あり</option>
+              <option>公式SNS等での転載あり</option>
+              <option>複数媒体での利用あり</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="projectUrl">
+              企画書・商品・参考URL
+              <span class="optional">任意</span>
+            </label>
+            <input type="url" id="projectUrl" maxlength="300" placeholder="https://...">
+          </div>
+        </div>
+      </section>
+
+      <section id="collabSection" class="dynamic-section">
+        <h2>コラボ・出演のご相談</h2>
+        <p class="note">企画内容や希望時期を簡単に入力してください。</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="collabType">企画の種類</label>
+            <select id="collabType">
+              <option value="">選択してください</option>
+              <option>動画コラボ</option>
+              <option>ライブ配信</option>
+              <option>ゲーム企画</option>
+              <option>イベント出演</option>
+              <option>対談・インタビュー</option>
+              <option>音楽・映像コラボ</option>
+              <option>その他</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="collabDate">希望時期<span class="optional">任意</span></label>
+            <input type="text" id="collabDate" maxlength="80"
+              placeholder="例：来月、日程相談">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="collabUrl">活動先・企画資料URL<span class="optional">任意</span></label>
+          <input type="url" id="collabUrl" maxlength="300" placeholder="https://...">
+        </div>
+      </section>
+
+      <section id="adviceSection" class="dynamic-section">
+        <h2>アドバイス・相談</h2>
+        <p class="note">現在の状況と、どうなりたいかを書いていただくと回答しやすくなります。</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="adviceTopic">相談テーマ</label>
+            <select id="adviceTopic">
+              <option value="">選択してください</option>
+              <option>SNS運用</option>
+              <option>YouTube・動画制作</option>
+              <option>ゲーム活動</option>
+              <option>広告・プロモーション</option>
+              <option>音楽・映像</option>
+              <option>仕事・活動の進め方</option>
+              <option>その他</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="adviceGoal">目標<span class="optional">任意</span></label>
+            <input type="text" id="adviceGoal" maxlength="120"
+              placeholder="例：YouTube登録者を増やしたい">
+          </div>
+        </div>
+      </section>
+
+      <section id="requestSection" class="dynamic-section">
+        <h2>やってほしいこと・リクエスト</h2>
+        <p class="note">見たい企画や動画、配信、ゲームなどを自由に送ってください。</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="requestType">リクエストの種類</label>
+            <select id="requestType">
+              <option value="">選択してください</option>
+              <option>動画企画</option>
+              <option>ライブ配信</option>
+              <option>ゲーム実況</option>
+              <option>楽曲・映像</option>
+              <option>検証・レビュー</option>
+              <option>その他</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="requestPlatform">希望する場所<span class="optional">任意</span></label>
+            <select id="requestPlatform">
+              <option value="">おまかせ</option>
+              <option>YouTube</option>
+              <option>X</option>
+              <option>TikTok</option>
+              <option>Instagram</option>
+              <option>ライブ配信</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section id="questionSection" class="dynamic-section">
+        <h2>質問</h2>
+        <p class="note">質問のジャンルを選び、下の内容欄へ詳しく入力してください。</p>
+
+        <div class="field">
+          <label for="questionTopic">質問ジャンル</label>
+          <select id="questionTopic">
+            <option value="">選択してください</option>
+            <option>活動について</option>
+            <option>ゲームについて</option>
+            <option>SNS・YouTubeについて</option>
+            <option>音楽・映像について</option>
+            <option>仕事について</option>
+            <option>その他</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="field">
+        <label for="message">内容</label>
+        <textarea id="message" maxlength="2500" minlength="5" required
+          placeholder="ご依頼内容、相談、リクエスト、質問などを自由に入力してください。"></textarea>
+
+        <div class="counter-row">
+          <span>5〜2500文字</span>
+          <span><span id="count">0</span> / 2500文字</span>
+        </div>
+      </div>
+
+      <div class="rule-box">
+        いたずら、連続送信、誹謗中傷、脅迫、個人情報の不正掲載及び同じ文字の大量入力は送信できません。
+      </div>
+
+      <label class="agree-row" for="agree">
+        <input type="checkbox" id="agree">
+        <span>上記のルールを確認し、入力内容に間違いがないことを確認しました。</span>
+      </label>
+
+      <div class="button-grid">
+        <button type="button" id="gmailButton" class="gmail-button">Gmailで送る</button>
+        <button type="button" id="xButton" class="x-button">内容をコピーしてXを開く</button>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+
+      <section id="manualCopyBox" class="manual-copy">
+        <textarea id="manualCopyText" readonly></textarea>
+        <button type="button" id="retryCopyButton">もう一度コピーする</button>
+      </section>
+
+      <p class="privacy-note">
+        Gmailで送信すると送信元メールアドレスが表示されます。<br>
+        XのDMでは送信したXアカウントが表示されます。
+      </p>
+    </form>
+  </main>
+
+  <script>
+    const RECIPIENT_EMAIL = "tororo.gif.gck@gmail.com";
+    const X_PROFILE_URL = "https://x.com/Tororo_JINGUJI";
+    const COOLDOWN_SECONDS = 60;
+
+    const categoryInputs = document.querySelectorAll('input[name="category"]');
+    const dynamicSections = document.querySelectorAll(".dynamic-section");
+
+    const sectionMap = {
+      "お仕事・PRのご依頼": "workSection",
+      "コラボ・出演のご相談": "collabSection",
+      "アドバイス・相談": "adviceSection",
+      "やってほしいこと・リクエスト": "requestSection",
+      "質問": "questionSection"
+    };
+
+    const senderName = document.getElementById("senderName");
+    const replyContact = document.getElementById("replyContact");
+    const subjectInput = document.getElementById("subject");
+    const messageInput = document.getElementById("message");
+    const count = document.getElementById("count");
+    const agree = document.getElementById("agree");
+    const gmailButton = document.getElementById("gmailButton");
+    const xButton = document.getElementById("xButton");
+    const statusBox = document.getElementById("status");
+    const manualCopyBox = document.getElementById("manualCopyBox");
+    const manualCopyText = document.getElementById("manualCopyText");
+    const retryCopyButton = document.getElementById("retryCopyButton");
+
+    categoryInputs.forEach((input) => {
+      input.addEventListener("change", () => {
+        const category = getCategory();
+
+        dynamicSections.forEach((section) => {
+          section.classList.remove("show");
+        });
+
+        if (sectionMap[category]) {
+          document.getElementById(sectionMap[category]).classList.add("show");
+        }
+
+        subjectInput.placeholder = getSubjectPlaceholder(category);
+        clearStatus();
+      });
+    });
+
+    messageInput.addEventListener("input", () => {
+      count.textContent = messageInput.value.length;
+      clearStatus();
+      hideManualCopy();
+    });
+
+    gmailButton.addEventListener("click", () => {
+      if (!validateForm()) return;
+
+      const formattedMessage = buildMessage();
+
+      if (!confirm("Gmailの送信画面を開きます。よろしいですか？")) {
+        return;
+      }
+
+      saveSendTime();
+
+      const emailSubject =
+        "[" + getCategory() + "] " +
+        (subjectInput.value.trim() || "神宮寺匁トロロへのご連絡");
+
+      window.location.href =
+        "mailto:" + RECIPIENT_EMAIL +
+        "?subject=" + encodeURIComponent(emailSubject) +
+        "&body=" + encodeURIComponent(formattedMessage);
+    });
+
+    xButton.addEventListener("click", async () => {
+      if (!validateForm()) return;
+
+      const formattedMessage = buildMessage();
+      const copied = await copyToClipboard(formattedMessage);
+
+      if (copied) {
+        saveSendTime();
+        showStatus(
+          "内容をクリップボードにコピーしました。Xで@Tororo_JINGUJIへDMし、貼り付けてください。",
+          "success"
+        );
+
+        hideManualCopy();
+
+        setTimeout(() => {
+          window.open(X_PROFILE_URL, "_blank", "noopener,noreferrer");
+        }, 700);
+      } else {
+        showManualCopy(formattedMessage);
+        showStatus(
+          "自動コピーできませんでした。下の文章を長押ししてコピーしてください。",
+          "error"
+        );
+      }
+    });
+
+    retryCopyButton.addEventListener("click", async () => {
+      const copied = await copyToClipboard(manualCopyText.value);
+
+      if (copied) {
+        showStatus("クリップボードにコピーしました。", "success");
+        hideManualCopy();
+      } else {
+        manualCopyText.focus();
+        manualCopyText.select();
+        manualCopyText.setSelectionRange(0, manualCopyText.value.length);
+        showStatus("文章を選択しました。長押しメニューからコピーしてください。", "error");
+      }
+    });
+
+    function getCategory() {
+      const selected = document.querySelector('input[name="category"]:checked');
+      return selected ? selected.value : "その他";
+    }
+
+    function getSubjectPlaceholder(category) {
+      const placeholders = {
+        "お仕事・PRのご依頼": "例：ゲームPR動画の制作依頼について",
+        "コラボ・出演のご相談": "例：YouTubeコラボのご相談",
+        "アドバイス・相談": "例：SNS運用について相談したい",
+        "やってほしいこと・リクエスト": "例：動画企画のリクエスト",
+        "質問": "例：活動についての質問",
+        "取材・掲載のご相談": "例：インタビュー掲載のご相談",
+        "応援・メッセージ": "例：応援メッセージ",
+        "その他": "ご連絡の件名"
+      };
+      return placeholders[category] || "ご連絡の件名";
+    }
+
+    function selectedPlatforms() {
+      const ids = [
+        "platformYoutube",
+        "platformX",
+        "platformTikTok",
+        "platformInstagram",
+        "platformStreaming",
+        "platformEvent",
+        "platformOther"
+      ];
+
+      return ids
+        .map((id) => document.getElementById(id))
+        .filter((input) => input.checked)
+        .map((input) => input.value);
+    }
+
+    function addField(lines, label, value) {
+      const clean = String(value || "").trim();
+      if (!clean) return;
+      lines.push("");
+      lines.push("【" + label + "】");
+      lines.push(clean);
+    }
+
+    function buildMessage() {
+      const category = getCategory();
+      const lines = ["神宮寺匁トロロ様"];
+
+      addField(lines, "ご連絡の種類", category);
+      addField(lines, "お名前・会社名", senderName.value);
+      addField(lines, "ご返信先", replyContact.value);
+      addField(lines, "件名", subjectInput.value);
+
+      if (category === "お仕事・PRのご依頼") {
+        addField(lines, "ご依頼内容", document.getElementById("workType").value);
+        addField(lines, "希望媒体", selectedPlatforms().join("、"));
+        addField(lines, "希望する本数・内容", document.getElementById("deliverables").value);
+        addField(lines, "ご予算", document.getElementById("budget").value);
+        addField(lines, "希望時期・納期", document.getElementById("deadline").value);
+        addField(lines, "二次利用・広告利用", document.getElementById("usage").value);
+        addField(lines, "企画書・商品・参考URL", document.getElementById("projectUrl").value);
+      }
+
+      if (category === "コラボ・出演のご相談") {
+        addField(lines, "企画の種類", document.getElementById("collabType").value);
+        addField(lines, "希望時期", document.getElementById("collabDate").value);
+        addField(lines, "活動先・企画資料URL", document.getElementById("collabUrl").value);
+      }
+
+      if (category === "アドバイス・相談") {
+        addField(lines, "相談テーマ", document.getElementById("adviceTopic").value);
+        addField(lines, "目標", document.getElementById("adviceGoal").value);
+      }
+
+      if (category === "やってほしいこと・リクエスト") {
+        addField(lines, "リクエストの種類", document.getElementById("requestType").value);
+        addField(lines, "希望する場所", document.getElementById("requestPlatform").value);
+      }
+
+      if (category === "質問") {
+        addField(lines, "質問ジャンル", document.getElementById("questionTopic").value);
+      }
+
+      addField(lines, "内容", messageInput.value);
+
+      lines.push("");
+      lines.push("--------------------");
+      lines.push("神宮寺匁トロロ ご連絡BOXから作成");
+
+      return lines.join("\n");
+    }
+
+    function validateForm() {
+      const message = messageInput.value.trim();
+
+      if (!agree.checked) {
+        showStatus("確認欄にチェックしてください。", "error");
+        return false;
+      }
+
+      if (message.length < 5) {
+        showStatus("内容を5文字以上入力してください。", "error");
+        messageInput.focus();
+        return false;
+      }
+
+      if (message.length > 2500) {
+        showStatus("内容は2500文字以内にしてください。", "error");
+        return false;
+      }
+
+      if (/(.)\1{19,}/u.test(message)) {
+        showStatus("同じ文字を20文字以上連続して入力することはできません。", "error");
+        return false;
+      }
+
+      const lastSend = Number(localStorage.getItem("tororoContactLastSend") || 0);
+      const elapsedSeconds = Math.floor((Date.now() - lastSend) / 1000);
+
+      if (lastSend && elapsedSeconds < COOLDOWN_SECONDS) {
+        showStatus(
+          "連続送信防止のため、あと" +
+          (COOLDOWN_SECONDS - elapsedSeconds) +
+          "秒お待ちください。",
+          "error"
+        );
+        return false;
+      }
+
+      return true;
+    }
+
+    async function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (error) {}
+      }
+
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.left = "-9999px";
+      area.style.opacity = "0";
+
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+      area.setSelectionRange(0, area.value.length);
+
+      let copied = false;
+
+      try {
+        copied = document.execCommand("copy");
+      } catch (error) {
+        copied = false;
+      }
+
+      document.body.removeChild(area);
+      return copied;
+    }
+
+    function saveSendTime() {
+      localStorage.setItem("tororoContactLastSend", String(Date.now()));
+    }
+
+    function showStatus(text, type) {
+      statusBox.textContent = text;
+      statusBox.className = "status " + type;
+    }
+
+    function clearStatus() {
+      statusBox.textContent = "";
+      statusBox.className = "status";
+    }
+
+    function showManualCopy(text) {
+      manualCopyText.value = text;
+      manualCopyBox.classList.add("show");
+
+      setTimeout(() => {
+        manualCopyText.focus();
+        manualCopyText.select();
+        manualCopyText.setSelectionRange(0, manualCopyText.value.length);
+      }, 100);
+    }
+
+    function hideManualCopy() {
+      manualCopyBox.classList.remove("show");
+      manualCopyText.value = "";
+    }
+  </script>
+</body>
+</html>
